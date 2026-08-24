@@ -2,6 +2,9 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const asset = (path: string) => `${basePath}${path}`;
+
 const services = [
   { number: "01", title: "Homes", text: "Interiors, exteriors, trim, doors, ceilings, and detailed finish work for lived-in spaces.", tag: "Residential" },
   { number: "02", title: "Decks & fences", text: "Preparation, paint, and stain systems that help outdoor surfaces stand up to the elements.", tag: "Outdoor" },
@@ -113,7 +116,7 @@ export default function Home() {
     <main>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
         <a className="brand" href="#top" aria-label="Brian McKeon Painting home" onClick={closeMenu}>
-          <span className="brand-mark"><img src="/bmp-mark.jpeg" alt="" /></span>
+          <span className="brand-mark"><img src={asset("/bmp-mark.jpeg")} alt="" /></span>
           <span><strong>Brian McKeon</strong><small>Painting</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
@@ -153,7 +156,7 @@ export default function Home() {
         <div className="hero-art" aria-label="Brian McKeon Painting brand artwork">
           <div className="glow" />
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-          <div className="logo-frame"><img src="/bmp-mark.jpeg" alt="BMP paintbrush emblem" /></div>
+          <div className="logo-frame"><img src={asset("/bmp-mark.jpeg")} alt="BMP paintbrush emblem" /></div>
           <div className="finish-card"><span>01</span><p>Fine finishes<br /><b>Built to last</b></p></div>
           <div className="swatch swatch-one" /><div className="swatch swatch-two" /><div className="swatch swatch-three" />
           <p className="art-caption">The art of a better finish <span>Since ———</span></p>
@@ -188,7 +191,7 @@ export default function Home() {
 
       <section className="why-section" id="about">
         <div className="why-visual reveal">
-          <img src="/bmp-brand.jpeg" alt="Brian McKeon Painting logo and phone number" />
+          <img src={asset("/bmp-brand.jpeg")} alt="Brian McKeon Painting logo and phone number" />
           <div className="paint-stroke stroke-one" /><div className="paint-stroke stroke-two" />
           <div className="why-badge"><b>Made for</b><span>the details</span></div>
         </div>
@@ -289,7 +292,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="footer-brand"><img src="/bmp-mark.jpeg" alt="BMP paintbrush emblem" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href="#estimate">Request an estimate <span>↗</span></a></div></div>
+        <div className="footer-brand"><img src={asset("/bmp-mark.jpeg")} alt="BMP paintbrush emblem" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href="#estimate">Request an estimate <span>↗</span></a></div></div>
         <div className="footer-grid">
           <div><p>Brian McKeon Painting</p><span>Residential · Commercial · Specialty</span><a href="tel:+16038581206">603 858 1206</a><a className="footer-email" href="mailto:b.mckeonpainting@gmail.com">b.mckeonpainting@gmail.com</a></div>
           <div><p>Explore</p><a href="#services">Services</a><a href="#work">Our work</a><a href="#reviews">Reviews</a><a href="#estimate">Request form</a></div>
