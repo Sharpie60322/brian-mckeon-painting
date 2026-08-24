@@ -15,7 +15,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { margin: 0; background: var(--cream); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: Arial, Helvetica, sans-serif; overflow-x: clip; }
+main { overflow-x: clip; }
 body:has(.mobile-menu.open), body:has(.modal-backdrop) { overflow: hidden; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -115,7 +116,14 @@ h1 em, h2 em { color: var(--blue); font-weight: 500; }
 .why-section { color: white; background: var(--navy); display: grid; grid-template-columns: .86fr 1.14fr; min-height: 760px; }
 .why-visual { min-height: 760px; position: relative; overflow: hidden; background: #071833; }
 .why-visual::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, rgba(32,188,233,.23), transparent 48%), linear-gradient(145deg, transparent 50%, rgba(232,180,94,.12)); }
-.why-visual img { width: min(75%, 520px); position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-2deg); box-shadow: 0 36px 80px rgba(0,0,0,.38); border: 1px solid rgba(255,255,255,.12); }
+.why-logo-card { width: min(72%, 500px); padding: 22px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-2deg); color: var(--navy); background: var(--cream); box-shadow: 0 36px 80px rgba(0,0,0,.38); border: 1px solid rgba(255,255,255,.3); z-index: 1; }
+.why-logo-art { aspect-ratio: 1.12; overflow: hidden; background: white; }
+.why-logo-art img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.why-logo-copy { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding: 18px 4px 3px; }
+.why-logo-copy p, .why-logo-copy strong, .why-logo-copy span { display: block; margin: 0; }
+.why-logo-copy strong { font: 500 25px Georgia, serif; letter-spacing: -.03em; }
+.why-logo-copy span { margin-top: 3px; color: var(--blue); font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .22em; }
+.why-logo-copy a { color: var(--navy); font: 700 15px Arial, sans-serif; white-space: nowrap; border-bottom: 1px solid var(--gold); padding-bottom: 4px; }
 .paint-stroke { height: 28px; width: 55%; position: absolute; border-radius: 60% 40% 50% 45%; filter: blur(.2px); }.stroke-one { background: var(--cyan); left: -10%; top: 20%; transform: rotate(-12deg); }.stroke-two { background: var(--gold); right: -18%; bottom: 24%; transform: rotate(18deg); }
 .why-badge { width: 150px; height: 150px; border-radius: 50%; background: var(--gold); color: var(--navy); position: absolute; right: 7%; bottom: 8%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; animation: float 5s ease-in-out infinite; }.why-badge b { text-transform: uppercase; font-size: 9px; letter-spacing: .2em; }.why-badge span { font: italic 22px Georgia, serif; }
 .why-copy { padding: 110px clamp(32px, 8vw, 130px); display: flex; flex-direction: column; justify-content: center; }.kicker.light { color: #8cbad4; }.why-copy h2 em, .process-intro h2 em, .insurance-card h2 em { color: var(--gold); }.why-lede { color: #adbece; font-size: 16px; line-height: 1.8; max-width: 640px; }
@@ -125,8 +133,8 @@ h1 em, h2 em { color: var(--blue); font-weight: 500; }
 .work-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; }
 .filter-list { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }.filter-list button { border: 1px solid var(--line); color: var(--muted); background: transparent; padding: 10px 15px; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; cursor: pointer; transition: color .25s ease, background .25s ease; }.filter-list button:hover, .filter-list button.active { color: white; background: var(--navy); }
 .demo-disclosure { color: var(--muted); font-size: 11px; margin: 28px 0; border-left: 2px solid var(--gold); padding-left: 12px; }
-.project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px 24px; }
-.project-card { grid-column: span 4; }.project-card.project-0, .project-card.project-4 { grid-column: span 8; }.project-card.project-2, .project-card.project-3 { margin-top: 70px; }
+.project-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 24px; }
+.project-card { grid-column: span 4; min-width: 0; }.project-card.project-0, .project-card.project-4 { grid-column: span 8; }.project-card.project-2, .project-card.project-3 { margin-top: 70px; }
 .project-image { height: 410px; background-size: cover; background-position: center; position: relative; overflow: hidden; isolation: isolate; transition: background-size .6s ease; }
 .project-card.project-0 .project-image, .project-card.project-4 .project-image { height: 520px; }
 .project-image::before { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(6,27,61,.72)); opacity: .3; transition: opacity .4s ease; z-index: -1; }.project-image::after { content: ""; position: absolute; inset: 0; border: 0 solid rgba(255,255,255,.75); transition: border-width .35s ease; }
@@ -174,6 +182,9 @@ footer { color: white; background: #04152f; padding: 100px clamp(24px, 6vw, 96px
 @keyframes scan { 50%, 100% { transform: translateX(100%); } }
 @keyframes ticker { to { transform: translateX(-50%); } }
 
+@media (min-width: 901px) {
+  .mobile-menu { display: none; }
+}
 @media (max-width: 1100px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
   .insurance-card { grid-template-columns: 80px 1fr; }.policy-grid { grid-column: 1 / -1; }.insurance-card > small { grid-column: 1 / -1; }
@@ -192,18 +203,18 @@ footer { color: white; background: #04152f; padding: 100px clamp(24px, 6vw, 96px
 }
 @media (max-width: 620px) {
   html { scroll-padding-top: 70px; }.site-header { height: 72px; padding-inline: 18px; }.brand strong { font-size: 12px; }.brand-mark { width: 38px; height: 38px; }
-  .hero { min-height: auto; padding: 120px 20px 65px; }.hero::after { display: none; } h1 { font-size: clamp(51px, 15.5vw, 72px); }.hero-lede { font-size: 16px; }.hero-actions { align-items: stretch; flex-direction: column; gap: 20px; }.button { width: 100%; }.hero-art { min-height: 420px; margin-top: 12px; }.finish-card { left: 0; bottom: 5%; }.art-caption { display: none; }.orbit-one { width: 102%; }.scroll-cue { display: none; }
-  .service-strip { height: 72px; }.section { padding: 85px 20px; }.section-heading { margin-bottom: 42px; }.section h2, .why-copy h2, .process-intro h2, .reviews-side h2, .insurance-card h2, .estimate-copy h2, .faq-head h2 { font-size: 43px; }
-  .services-grid { grid-template-columns: 1fr; }.service-card { min-height: 360px; }
-  .why-visual { min-height: 480px; }.why-visual img { width: 83%; }.why-badge { width: 120px; height: 120px; }.why-copy { padding: 75px 20px; }
-  .work-head { align-items: flex-start; flex-direction: column; }.filter-list { justify-content: flex-start; }.project-grid { gap: 38px; }.project-card, .project-card.project-0, .project-card.project-4 { grid-column: 1 / -1; }.project-image, .project-card.project-0 .project-image, .project-card.project-4 .project-image { height: 370px; }.work-cta { align-items: flex-start; flex-direction: column; }
-  .process-section, .reviews-section, .estimate-section, .faq-section { padding: 85px 20px; }.process-list li { grid-template-columns: 34px 1fr 20px; gap: 12px; }
-  .reviews-side { display: block; }.review-card { min-height: 450px; padding: 32px 24px; }.review-card > p { font-size: 23px; }.review-controls { margin-bottom: 30px; }
+  .hero { min-height: auto; padding: 112px 20px 54px; }.hero::after { display: none; } h1 { font-size: clamp(46px, 13.8vw, 58px); line-height: .91; letter-spacing: -.055em; }.hero-lede { font-size: 15px; line-height: 1.6; }.hero-actions { align-items: stretch; flex-direction: column; gap: 18px; margin-top: 30px; }.button { width: 100%; }.hero-art { min-height: 360px; margin-top: 6px; }.logo-frame { width: min(74%, 300px); }.finish-card { left: 0; bottom: 3%; padding: 14px 17px; }.swatch { width: 24px; height: 24px; }.art-caption { display: none; }.orbit-one { width: 94%; }.scroll-cue { display: none; }
+  .service-strip { height: 66px; }.section { padding: 72px 20px; }.section-heading { margin-bottom: 36px; }.section h2, .why-copy h2, .process-intro h2, .reviews-side h2, .insurance-card h2, .estimate-copy h2, .faq-head h2 { font-size: clamp(38px, 11.5vw, 44px); }
+  .services-grid { grid-template-columns: minmax(0, 1fr); }.service-card { min-height: 300px; padding: 24px; }.service-symbol { height: 105px; padding-top: 20px; }
+  .why-visual { min-height: 500px; }.why-logo-card { width: calc(100% - 40px); padding: 16px; transform: translate(-50%, -50%) rotate(-1deg); }.why-logo-copy { padding: 14px 2px 2px; }.why-logo-copy strong { font-size: 22px; }.why-logo-copy a { font-size: 13px; }.why-badge, .paint-stroke { display: none; }.why-copy { padding: 65px 20px; }
+  .work-head { align-items: flex-start; flex-direction: column; }.filter-list { justify-content: flex-start; }.filter-list button { padding: 9px 12px; }.project-grid { grid-template-columns: minmax(0, 1fr); gap: 34px; }.project-card, .project-card.project-0, .project-card.project-4 { grid-column: 1; width: 100%; min-width: 0; }.project-image, .project-card.project-0 .project-image, .project-card.project-4 .project-image { height: 310px; }.project-meta { align-items: flex-start; }.project-meta > span { max-width: 116px; overflow-wrap: anywhere; }.work-cta { align-items: flex-start; flex-direction: column; margin-top: 58px; }
+  .process-section, .reviews-section, .estimate-section, .faq-section { padding: 72px 20px; }.process-list li { min-height: 130px; grid-template-columns: 30px 1fr 18px; gap: 10px; }.process-list h3 { font-size: 23px; }
+  .reviews-side { display: block; }.review-card { min-height: 390px; padding: 30px 22px; }.review-card > p { font-size: 22px; }.review-controls { margin-bottom: 30px; }
   .insurance-section { padding: 0 20px 85px; }.insurance-card { padding: 36px 24px; grid-template-columns: 1fr; }.insurance-icon { width: 65px; height: 74px; }.policy-grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }.form-shell { padding: 28px 20px; }.success-state h3 { font-size: 36px; }
   .footer-brand { grid-template-columns: 72px 1fr; gap: 18px; }.footer-brand img { width: 72px; height: 72px; }.footer-grid { grid-template-columns: 1fr 1fr; }.footer-grid > div:first-child { grid-column: 1 / -1; }.footer-bottom { gap: 20px; flex-direction: column; }
-  .mobile-estimate { position: fixed; z-index: 35; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; color: var(--navy); background: var(--gold); box-shadow: 0 15px 35px rgba(6,27,61,.3); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .1em; }
-  footer { padding-bottom: 90px; }
+  .mobile-estimate { display: none; }
+  footer { padding-bottom: 30px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

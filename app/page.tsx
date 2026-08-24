@@ -191,7 +191,10 @@ export default function Home() {
 
       <section className="why-section" id="about">
         <div className="why-visual reveal">
-          <img src={asset("/bmp-brand.jpeg")} alt="Brian McKeon Painting logo and phone number" />
+          <div className="why-logo-card">
+            <div className="why-logo-art"><img src={asset("/bmp-mark.jpeg")} alt="BMP ornamental paintbrush emblem" /></div>
+            <div className="why-logo-copy"><p><strong>Brian McKeon</strong><span>Painting</span></p><a href="tel:+16038581206">603 858 1206</a></div>
+          </div>
           <div className="paint-stroke stroke-one" /><div className="paint-stroke stroke-two" />
           <div className="why-badge"><b>Made for</b><span>the details</span></div>
         </div>
