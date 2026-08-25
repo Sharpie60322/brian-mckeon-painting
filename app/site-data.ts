@@ -78,10 +78,4 @@ export const projects = [
   },
 ];
 
-export const reviews = [
-  { quote: "The site can feature a short client story here—what changed, what the experience felt like, and the detail the customer appreciated most.", name: "Verified client name", project: "Interior painting" },
-  { quote: "This space is designed for a concise, specific review that gives future customers confidence in the preparation, communication, and finish.", name: "Verified client name", project: "Exterior project" },
-  { quote: "Add an owner-approved review here, ideally with the project type and town. Specific feedback always feels more credible than generic praise.", name: "Verified client name", project: "Deck refinishing" },
-];
-
 export const projectFilters = ["All", "Exterior", "Interior", "Outdoor", "Commercial"];

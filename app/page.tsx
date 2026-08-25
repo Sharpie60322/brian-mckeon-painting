@@ -1,7 +1,7 @@
 "use client";
 
 import { type CSSProperties, type FormEvent, useEffect, useMemo, useState } from "react";
-import { projectFilters, projects, reviews, services } from "./site-data";
+import { projectFilters, projects, services } from "./site-data";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const asset = (path: string) => `${basePath}${path}`;
@@ -52,7 +52,6 @@ export default function Home() {
   const [comparison, setComparison] = useState(50);
   const [comparisonProject, setComparisonProject] = useState(0);
   const [filter, setFilter] = useState("All");
-  const [review, setReview] = useState(0);
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -155,6 +154,15 @@ export default function Home() {
             <p className="recognition-stamp" aria-hidden="true"><span>LOCAL</span><b>LOVE</b><i>✦</i></p>
           </div>
         </div>
+        <div className="recognition-voices" aria-labelledby="neighbor-voices-title">
+          <header><div><p>What verified neighbors are saying</p><h3 id="neighbor-voices-title">The recognition is backed by <em>real local experience.</em></h3></div><a href="https://nextdoor.com/pages/brian-mckeon-painting-concord-nh-1/" target="_blank" rel="noreferrer">View the public Nextdoor page <span>↗</span></a></header>
+          <div className="recognition-voice-grid">
+            <article><span>01</span><p>Neighbors describe Brian as highly reliable and recommend him for a wide range of home projects.</p><small>Reliability · Recommendation</small></article>
+            <article><span>02</span><p>Feedback highlights a friendly demeanor, close attention to detail, efficient work, and a commitment to finishing correctly and on time.</p><small>Craftsmanship · Communication</small></article>
+            <article><span>03</span><p>Brian and Justin are recognized for handling furniture and household items themselves, helping minimize disruption for busy homeowners.</p><small>Consideration · Full-service care</small></article>
+          </div>
+          <p className="recognition-source-note">Paraphrased from Nextdoor’s public aggregate summary titled “What verified neighbors are saying.” Individual reviewer names and full comments are not publicly displayed on the linked page.</p>
+        </div>
         <div className="recognition-scroll-note" aria-hidden="true"><span>Scroll to reveal</span><i /></div>
       </div>
     </section>
@@ -209,12 +217,6 @@ export default function Home() {
     <section className="process-section" id="process">
       <div className="process-intro reveal"><p className="kicker light">A clear process</p><h2>From first look<br />to <em>final coat.</em></h2><p>Good work starts with a shared understanding of the surfaces, preparation, schedule, and finish.</p></div>
       <ol className="process-list"><li className="reveal"><span>01</span><div><h3>Share the project</h3><p>Tell Brian what you would like painted, where it is, and the timeline you have in mind.</p></div><b>↓</b></li><li className="reveal"><span>02</span><div><h3>Review &amp; estimate</h3><p>Review the surfaces and scope, answer questions, and prepare a written estimate.</p></div><b>↓</b></li><li className="reveal"><span>03</span><div><h3>Prep &amp; paint</h3><p>Prepare the surfaces, protect nearby areas, and apply the planned finish with care.</p></div><b>↓</b></li><li className="reveal"><span>04</span><div><h3>Final walkthrough</h3><p>Review the work together, confirm the details, and close out the project cleanly.</p></div><b>✓</b></li></ol>
-    </section>
-
-    <section className="reviews-section" id="reviews">
-      <div className="reviews-side reveal"><p className="kicker">Client notes</p><h2>Good work gets <em>remembered.</em></h2><p>This polished review area is ready for owner-approved, verifiable customer feedback.</p><div className="review-controls"><button aria-label="Previous review" onClick={() => setReview((review - 1 + reviews.length) % reviews.length)}>←</button><span>{review + 1} / {reviews.length}</span><button aria-label="Next review" onClick={() => setReview((review + 1) % reviews.length)}>→</button></div></div>
-      <article className="review-card reveal" key={review}><div className="quote-mark">“</div><p>{reviews[review].quote}</p><div className="review-person"><span>{reviews[review].name.charAt(0)}</span><div><b>{reviews[review].name}</b><small>{reviews[review].project} · Review placeholder</small></div></div></article>
-      <div className="review-pattern" aria-hidden="true"><span>B</span><span>M</span><span>P</span></div>
     </section>
 
     <section className="insurance-section" id="insurance"><div className="insurance-card reveal"><div className="insurance-icon">✓</div><div><p className="kicker light">Customer confidence</p><h2>General liability <em>insured.</em></h2><p>The owner has confirmed that Brian McKeon Painting carries general liability insurance. Verified certificate details can be inserted below when provided.</p></div><div className="policy-grid"><p><span>Carrier</span><b>[Confirm with owner]</b></p><p><span>Policy / COI</span><b>[Add reference]</b></p><p><span>Coverage dates</span><b>[Add effective dates]</b></p><p><span>Proof of coverage</span><b>Available on request*</b></p></div><small>*Publish policy details only after confirming current documentation, limits, and wording with the insurer or agent.</small></div></section>

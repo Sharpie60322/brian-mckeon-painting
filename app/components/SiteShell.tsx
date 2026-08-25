@@ -55,6 +55,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         const rect = recognition.getBoundingClientRect();
         const travel = Math.max(rect.height - window.innerHeight, 1);
         const recognitionProgress = Math.min(Math.max(-rect.top / travel, 0), 1);
+        const voicesProgress = Math.min(Math.max((recognitionProgress - .48) / .38, 0), 1);
         recognition.style.setProperty("--recognition-progress", recognitionProgress.toFixed(4));
         recognition.style.setProperty("--recognition-copy-y", `${Math.round((1 - recognitionProgress) * 72)}px`);
         recognition.style.setProperty("--recognition-document-y", `${Math.round(62 - recognitionProgress * 98)}px`);
@@ -65,6 +66,11 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         recognition.style.setProperty("--recognition-halo-turn", `${Math.round(recognitionProgress * 230)}deg`);
         recognition.style.setProperty("--recognition-halo-two-turn", `${Math.round(recognitionProgress * -138)}deg`);
         recognition.style.setProperty("--recognition-content-opacity", `${Math.min(.3 + recognitionProgress * 1.8, 1).toFixed(3)}`);
+        recognition.style.setProperty("--recognition-main-y", `${Math.round(voicesProgress * -92)}px`);
+        recognition.style.setProperty("--recognition-main-opacity", `${(1 - voicesProgress * .67).toFixed(3)}`);
+        recognition.style.setProperty("--recognition-voices-y", `${Math.round((1 - voicesProgress) * 155)}px`);
+        recognition.style.setProperty("--recognition-voices-opacity", voicesProgress.toFixed(3));
+        recognition.classList.toggle("voices-visible", voicesProgress > .08);
       }
     };
     onScroll();

@@ -749,10 +749,10 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
 }
 
 /* Scroll-led community recognition */
-.recognition-scroll { --recognition-progress: 0; --recognition-copy-y: 72px; --recognition-document-y: 62px; --recognition-document-turn: 7deg; --recognition-medallion-turn: -4deg; --recognition-stamp-turn: 8deg; --recognition-ghost-x: 18vw; --recognition-halo-turn: 0deg; --recognition-halo-two-turn: 0deg; --recognition-content-opacity: .3; height: 190vh; position: relative; color: white; background: #03142e; }
+.recognition-scroll { --recognition-progress: 0; --recognition-copy-y: 72px; --recognition-document-y: 62px; --recognition-document-turn: 7deg; --recognition-medallion-turn: -4deg; --recognition-stamp-turn: 8deg; --recognition-ghost-x: 18vw; --recognition-halo-turn: 0deg; --recognition-halo-two-turn: 0deg; --recognition-content-opacity: .3; --recognition-main-y: 0px; --recognition-main-opacity: 1; --recognition-voices-y: 155px; --recognition-voices-opacity: 0; height: 250vh; position: relative; color: white; background: #03142e; }
 .recognition-sticky { min-height: 760px; height: 100vh; position: sticky; top: 0; overflow: hidden; isolation: isolate; background: radial-gradient(circle at 78% 36%, rgba(32,188,233,.14), transparent 25%), radial-gradient(circle at 14% 76%, rgba(232,180,94,.12), transparent 25%), linear-gradient(137deg, #020f25 0%, #062650 58%, #031731 100%); }
 .recognition-sticky::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .22; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(circle at center, black, transparent 76%); }
-.recognition-layout { width: 100%; height: 100%; padding: clamp(105px, 11vh, 138px) clamp(28px, 7vw, 116px) clamp(70px, 8vh, 96px); display: grid; grid-template-columns: minmax(360px, .96fr) minmax(380px, .84fr); gap: clamp(60px, 9vw, 160px); align-items: center; }
+.recognition-layout { width: 100%; height: 100%; padding: clamp(105px, 11vh, 138px) clamp(28px, 7vw, 116px) clamp(70px, 8vh, 96px); display: grid; grid-template-columns: minmax(360px, .96fr) minmax(380px, .84fr); gap: clamp(60px, 9vw, 160px); align-items: center; opacity: var(--recognition-main-opacity); transform: translateY(var(--recognition-main-y)); will-change: transform, opacity; }
 .recognition-copy { max-width: 820px; position: relative; z-index: 4; opacity: var(--recognition-content-opacity); transform: translateY(var(--recognition-copy-y)); will-change: transform, opacity; }
 .recognition-copy .kicker { margin: 0 0 26px; }
 .recognition-pulse { width: 7px; height: 7px; display: inline-block; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 rgba(232,180,94,.5); animation: recognitionPulse 2.2s ease-out infinite; }
@@ -799,6 +799,20 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
 .recognition-halo::after { width: 7px; height: 7px; left: 50%; top: -4px; background: var(--gold); box-shadow: 0 0 20px var(--gold); }
 .recognition-halo-one { width: 620px; height: 620px; right: -240px; top: -250px; }
 .recognition-halo-two { width: 420px; height: 420px; left: -210px; bottom: -220px; transform: rotate(var(--recognition-halo-two-turn)); }
+.recognition-voices { position: absolute; left: clamp(28px, 7vw, 116px); right: clamp(28px, 7vw, 116px); bottom: clamp(42px, 5.5vh, 72px); z-index: 12; padding: clamp(22px, 2.4vw, 34px); border: 1px solid rgba(255,255,255,.16); opacity: var(--recognition-voices-opacity); background: linear-gradient(135deg, rgba(5,28,61,.93), rgba(6,42,78,.88)); box-shadow: 0 35px 90px rgba(0,0,0,.38); backdrop-filter: blur(22px); transform: translateY(var(--recognition-voices-y)); pointer-events: none; will-change: transform, opacity; }
+.recognition-scroll.voices-visible .recognition-voices { pointer-events: auto; }
+.recognition-voices header { margin-bottom: 22px; display: flex; align-items: end; justify-content: space-between; gap: 36px; }
+.recognition-voices header p { margin: 0 0 8px; color: var(--cyan); font-size: 8px; font-weight: 900; letter-spacing: .17em; text-transform: uppercase; }
+.recognition-voices h3 { max-width: 760px; margin: 0; font: 500 clamp(27px, 2.8vw, 43px)/.98 Georgia, serif; letter-spacing: -.045em; }
+.recognition-voices h3 em { color: var(--gold); }
+.recognition-voices header a { flex: 0 0 auto; padding-bottom: 7px; border-bottom: 1px solid var(--gold); color: #d3dee6; font-size: 8px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.recognition-voices header a span { margin-left: 12px; color: var(--gold); }
+.recognition-voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.16); border-left: 1px solid rgba(255,255,255,.16); }
+.recognition-voice-grid article { min-height: 154px; padding: 19px 20px 17px; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,.16); border-bottom: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.025); }
+.recognition-voice-grid article > span { color: var(--gold); font: italic 13px Georgia, serif; }
+.recognition-voice-grid article p { margin: 16px 0 18px; color: #edf3f7; font: 500 clamp(14px, 1.15vw, 18px)/1.45 Georgia, serif; }
+.recognition-voice-grid article small { margin-top: auto; color: #829db2; font-size: 7px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+.recognition-source-note { margin: 14px 0 0; color: #7591a6; font-size: 7px; line-height: 1.6; letter-spacing: .04em; }
 .recognition-scroll-note { position: absolute; left: 50%; bottom: 22px; z-index: 8; display: flex; align-items: center; gap: 12px; color: #7892a7; transform: translateX(-50%); }
 .recognition-scroll-note span { font-size: 7px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
 .recognition-scroll-note i { width: 40px; height: 1px; position: relative; overflow: hidden; background: rgba(255,255,255,.18); }
@@ -821,12 +835,14 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
   .recognition-document { width: 78%; }
   .recognition-medallion { width: 180px; }
   .recognition-stamp { width: 108px; height: 108px; }
+  .recognition-voices { left: 24px; right: 24px; }
+  .recognition-voice-grid article { min-height: 170px; padding: 17px; }
 }
 
 @media (max-width: 780px) {
   .recognition-scroll { height: auto; }
   .recognition-sticky { height: auto; min-height: 0; position: relative; }
-  .recognition-layout { padding: 100px 20px 90px; display: flex; flex-direction: column; gap: 70px; }
+  .recognition-layout { height: auto; padding: 100px 20px 70px; display: flex; flex-direction: column; gap: 70px; opacity: 1; transform: none; }
   .recognition-copy { max-width: 650px; opacity: 1; transform: none; }
   .recognition-copy h2 { font-size: clamp(50px, 14vw, 70px); }
   .recognition-copy > p:not(.kicker) { font-size: 15px; }
@@ -839,6 +855,11 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
   .recognition-medallion { width: 160px; left: 0; transform: rotate(4deg); }
   .recognition-stamp { width: 98px; height: 98px; right: 1%; transform: rotate(-7deg); }
   .recognition-ghost { bottom: 20px; font-size: 23vw; transform: none; }
+  .recognition-voices { margin: 0 20px 84px; padding: 24px 18px; position: relative; left: auto; right: auto; bottom: auto; opacity: 1; transform: none; pointer-events: auto; }
+  .recognition-voices header { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .recognition-voices h3 { font-size: 32px; }
+  .recognition-voice-grid { grid-template-columns: 1fr; }
+  .recognition-voice-grid article { min-height: 0; }
   .recognition-scroll-note { display: none; }
 }
 
@@ -859,7 +880,7 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .recognition-copy, .recognition-document, .recognition-ghost, .recognition-halo, .recognition-medallion, .recognition-stamp { transform: none; opacity: 1; }
+  .recognition-copy, .recognition-layout, .recognition-document, .recognition-ghost, .recognition-halo, .recognition-medallion, .recognition-stamp, .recognition-voices { transform: none; opacity: 1; }
   .recognition-pulse, .recognition-scroll-note i::after { animation: none; }
   .section-heading h2, .manifesto-copy h2, .transformation-head h2, .album-library-head h2, .process-intro h2, .reviews-side h2, .estimate-copy h2, .faq-head h2, .service-image-card, .album-card, .brand-manifesto .manifesto-photo { animation: none; }
 }
