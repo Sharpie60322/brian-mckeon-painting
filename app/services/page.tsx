@@ -1,7 +1,9 @@
+import { type CSSProperties } from "react";
 import { services } from "../site-data";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const route = (path: string) => `${basePath}${path}`;
+const asset = (path: string) => `${basePath}${path}`;
 
 const serviceDetails = [
   { title: "Interior painting", items: ["Walls and ceilings", "Trim, doors, and built-ins", "Careful protection of occupied spaces", "Color changes and refresh work"] },
@@ -14,7 +16,7 @@ export default function ServicesPage() {
   return <>
     <section className="inner-hero inner-hero-services" id="top"><div><p className="eyebrow"><span /> Services</p><h1>One careful approach.<br /><em>Endless applications.</em></h1><p>Explore the spaces, surfaces, and project types Brian McKeon Painting is prepared to discuss.</p></div><aside><span>01</span><p>Every project begins with a clear scope, the right preparation plan, and a finish selected for how the surface will actually be used.</p></aside></section>
 
-    <section className="section services page-services"><div className="services-grid">{services.map((service, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 70}ms` }}><div className="service-top"><span>{service.number}</span><i>↗</i></div><div className="service-symbol" aria-hidden="true"><b /><b /><b /></div><p className="service-tag">{service.tag}</p><h3>{service.title}</h3><p>{service.text}</p></article>)}</div></section>
+    <section className="section services page-services"><div className="services-grid services-image-grid">{services.map((service, index) => <article className="service-card service-image-card reveal" key={service.title} style={{ "--service-image": `url(${asset(service.image)})`, transitionDelay: `${index * 70}ms` } as CSSProperties}><div className="service-photo" /><div className="service-shade" /><div className="service-top"><span>{service.number}</span><i>↗</i></div><div className="service-card-copy"><p className="service-tag">{service.tag}</p><h3>{service.title}</h3><p>{service.text}</p></div></article>)}</div></section>
 
     <section className="service-depth"><div className="service-depth-head reveal"><p className="kicker">Project possibilities</p><h2>Detailed enough for the work.<br /><em>Simple enough to understand.</em></h2></div><div className="service-detail-grid">{serviceDetails.map((service, index) => <article className="service-detail reveal" key={service.title}><span>0{index + 1}</span><h3>{service.title}</h3><ul>{service.items.map((item) => <li key={item}>{item}<b>↗</b></li>)}</ul></article>)}</div></section>
 
