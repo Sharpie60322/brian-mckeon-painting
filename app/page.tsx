@@ -6,8 +6,51 @@ import { projectFilters, projects, reviews, services } from "./site-data";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const asset = (path: string) => `${basePath}${path}`;
 
+const transformations = [
+  {
+    number: "01",
+    shortTitle: "Exterior siding",
+    title: "A weathered exterior, brought back with clarity.",
+    description: "A controlled look at the full coating transformation—from careful surface preparation to a crisp blue-gray finish with bright white trim.",
+    before: "/slider-preparation-hd.webp",
+    after: "/slider-completed-hd.webp",
+    beforeAlt: "Red exterior siding in a carefully prepared condition",
+    afterAlt: "The same exterior viewpoint with completed blue-gray siding and white trim",
+    facts: ["Scrape & feather-sand", "Prime prepared areas", "Blue-gray finish · white trim"],
+    view: "Matched exterior angle",
+    finish: "Blue-gray siding",
+  },
+  {
+    number: "02",
+    shortTitle: "Deck refinishing",
+    title: "A tired deck, restored without losing its character.",
+    description: "The exact same deck, camera position, and daylight show what thoughtful preparation and a rich cedar-toned finish can do.",
+    before: "/deck-preparation-hd.webp",
+    after: "/deck-completed-hd.webp",
+    beforeAlt: "Weathered deck wood prepared for refinishing",
+    afterAlt: "The same deck viewpoint completed in a warm cedar-brown stain",
+    facts: ["Clean & surface prep", "Even absorption planning", "Warm cedar semi-transparent stain"],
+    view: "Matched deck angle",
+    finish: "Cedar-brown stain",
+  },
+  {
+    number: "03",
+    shortTitle: "Interior finish",
+    title: "Precise preparation makes a bold color feel effortless.",
+    description: "From patched, protected walls to a deep navy finish, the locked viewpoint keeps attention on the quality of the change.",
+    before: "/interior-preparation-hd.webp",
+    after: "/interior-completed-hd.webp",
+    beforeAlt: "Living room walls patched and taped in preparation for painting",
+    afterAlt: "The same living room viewpoint completed with deep navy walls and crisp white trim",
+    facts: ["Patch & feather-sand", "Protect crisp trim lines", "Deep navy eggshell finish"],
+    view: "Matched interior angle",
+    finish: "Deep navy walls",
+  },
+] as const;
+
 export default function Home() {
   const [comparison, setComparison] = useState(50);
+  const [comparisonProject, setComparisonProject] = useState(0);
   const [filter, setFilter] = useState("All");
   const [review, setReview] = useState(0);
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
@@ -15,6 +58,12 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
 
   const filteredProjects = useMemo(() => filter === "All" ? projects : projects.filter((project) => project.type === filter), [filter]);
+  const activeTransformation = transformations[comparisonProject];
+
+  function chooseTransformation(index: number) {
+    setComparisonProject(index);
+    setComparison(50);
+  }
 
   useEffect(() => { if (selectedProject) setGalleryIndex(0); }, [selectedProject]);
   useEffect(() => {
@@ -88,9 +137,23 @@ export default function Home() {
       <p className="manifesto-word" aria-hidden="true">CRAFT</p>
     </section>
 
-    <section className="comparison-section" id="comparison" aria-labelledby="comparison-title">
-      <div className="comparison-copy reveal"><p className="kicker">One view. One transformation.</p><h2 id="comparison-title">Preparation to <em>completed.</em></h2><p>Drag the control across one precisely matched viewpoint. The preparation and completed states now share the same camera angle, crop, architecture, and lighting for a clean comparison.</p><div className="comparison-facts"><p><span>01</span><b>Scraped and feather-sanded</b></p><p><span>02</span><b>Surface prepared for coating</b></p><p><span>03</span><b>Clean blue-gray finish</b></p></div><small className="comparison-disclosure">AI-assisted visualization based on owner-provided project photography; shown to demonstrate the coating transformation.</small></div>
-      <div className="comparison-wrap reveal" style={{ "--reveal": `${comparison}%` } as CSSProperties}><div className="comparison-frame"><img className="comparison-after" src={asset("/slider-completed-hd.webp")} alt="Completed blue-gray exterior finish" /><div className="comparison-before"><img src={asset("/slider-preparation-hd.webp")} alt="Red exterior in preparation condition" /></div><div className="comparison-divider"><span>↔</span></div><span className="comparison-label label-before">Preparation</span><span className="comparison-label label-after">Completed</span><input type="range" min="5" max="95" value={comparison} onChange={(event) => setComparison(Number(event.target.value))} aria-label="Compare preparation and completed exterior" /></div><div className="comparison-caption"><p><span>Viewpoint</span>Matched composition</p><p><span>Finish</span>Blue-gray siding · White trim</p></div></div>
+    <section className="transformation-showcase" id="comparison" aria-labelledby="comparison-title">
+      <header className="transformation-head reveal">
+        <div><p className="kicker light">Transformation studio · 03 matched studies</p><h2 id="comparison-title">Preparation you can <em>see.</em><br />Finishes you can feel.</h2></div>
+        <div className="transformation-intro"><span>Drag to compare</span><p>Each study uses a locked camera angle and matching composition, so the surface work—not a change in viewpoint—tells the story.</p></div>
+      </header>
+
+      <div className="transformation-selector reveal" role="tablist" aria-label="Choose a transformation">
+        {transformations.map((item, index) => <button key={item.shortTitle} type="button" role="tab" aria-selected={comparisonProject === index} aria-controls="transformation-panel" className={comparisonProject === index ? "active" : ""} onClick={() => chooseTransformation(index)}><span className="transformation-thumb"><img src={asset(item.after)} alt="" /></span><span className="transformation-tab-copy"><small>{item.number} · Case study</small><b>{item.shortTitle}</b></span><i>{comparisonProject === index ? "Viewing" : "View"} ↗</i></button>)}
+      </div>
+
+      <div className="transformation-stage" id="transformation-panel" role="tabpanel" aria-live="polite">
+        <div className="comparison-copy" key={`copy-${comparisonProject}`}><p className="kicker">Case study {activeTransformation.number}</p><h3>{activeTransformation.title}</h3><p>{activeTransformation.description}</p><div className="comparison-facts">{activeTransformation.facts.map((fact, index) => <p key={fact}><span>0{index + 1}</span><b>{fact}</b></p>)}</div><small className="comparison-disclosure">AI-assisted project visualization shown to demonstrate the coating transformation. Portfolio photography below is owner-provided.</small></div>
+        <div className="comparison-wrap" style={{ "--reveal": `${comparison}%` } as CSSProperties} key={`slider-${comparisonProject}`}>
+          <div className="comparison-frame"><img className="comparison-after" src={asset(activeTransformation.after)} alt={activeTransformation.afterAlt} /><div className="comparison-before"><img src={asset(activeTransformation.before)} alt={activeTransformation.beforeAlt} /></div><div className="comparison-divider"><span>↔</span></div><span className="comparison-label label-before">Preparation</span><span className="comparison-label label-after">Completed</span><input type="range" min="3" max="97" value={comparison} onChange={(event) => setComparison(Number(event.target.value))} aria-label={`Compare preparation and completed states for ${activeTransformation.shortTitle}`} /></div>
+          <div className="comparison-caption"><p><span>Viewpoint</span>{activeTransformation.view}</p><p><span>Completed finish</span>{activeTransformation.finish}</p><p className="drag-note"><span aria-hidden="true">↔</span> Drag across the image</p></div>
+        </div>
+      </div>
     </section>
 
     <section className="section work one-page-work" id="work">

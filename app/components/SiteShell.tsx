@@ -9,9 +9,9 @@ const asset = (path: string) => `${basePath}${path}`;
 
 const navigation = [
   { label: "Services", href: "/#services" },
+  { label: "Transformations", href: "/#comparison" },
   { label: "Portfolio", href: "/#work" },
-  { label: "Reviews", href: "/#reviews" },
-  { label: "About", href: "/#about" },
+  { label: "Process", href: "/#process" },
 ];
 
 const legalContent = {
