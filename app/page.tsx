@@ -135,6 +135,30 @@ export default function Home() {
       <a href="#about"><span>Meet the standard</span><b>↓</b></a>
     </section>
 
+    <section className="recognition-scroll" id="recognition" aria-labelledby="recognition-title">
+      <div className="recognition-sticky">
+        <div className="recognition-halo recognition-halo-one" aria-hidden="true" />
+        <div className="recognition-halo recognition-halo-two" aria-hidden="true" />
+        <p className="recognition-ghost" aria-hidden="true">NEIGHBORHOOD</p>
+        <div className="recognition-layout">
+          <div className="recognition-copy">
+            <p className="kicker light"><span className="recognition-pulse" /> Community recognition · 2024</p>
+            <span className="recognition-overline">Voted by local neighbors</span>
+            <h2 id="recognition-title">Loved by the people<br /><em>right next door.</em></h2>
+            <p>Brian McKeon Painting was voted a <strong>2024 Nextdoor Neighborhood Fave</strong>—a community-chosen recognition from the people who know the work close to home.</p>
+            <div className="recognition-proof-row"><p><span>01</span><b>Community voted</b></p><p><span>02</span><b>Locally recognized</b></p><p><span>03</span><b>Earned in 2024</b></p></div>
+            <a href="#work" className="recognition-link">See the work neighbors noticed <i>↓</i></a>
+          </div>
+          <div className="recognition-evidence">
+            <div className="recognition-medallion" aria-label="2024 Neighborhood Fave"><small>2024</small><span>Neighborhood</span><b>FAVE</b><i>Community voted</i></div>
+            <figure className="recognition-document"><span>Official recognition</span><img src={asset("/FB_IMG_1787622774260.jpg")} alt="Official 2024 Nextdoor Neighborhood Fave recognition received by Brian McKeon Painting" /><figcaption><b>Original recognition notice</b><small>Owner-supplied documentation · 2024</small></figcaption></figure>
+            <p className="recognition-stamp" aria-hidden="true"><span>LOCAL</span><b>LOVE</b><i>✦</i></p>
+          </div>
+        </div>
+        <div className="recognition-scroll-note" aria-hidden="true"><span>Scroll to reveal</span><i /></div>
+      </div>
+    </section>
+
     <section className="section services home-services" id="services">
       <div className="section-heading reveal"><div><p className="kicker">One painter. Many possibilities.</p><h2>What should feel<br /><em>new again?</em></h2></div><p>From the rooms you live in to the decks, fences, storefronts, and objects around them—every surface gets a project-specific plan.</p></div>
       <div className="services-grid services-image-grid">{services.map((service, index) => <article className="service-card service-image-card reveal" key={service.title} style={{ "--service-image": `url(${asset(service.image)})`, transitionDelay: `${index * 70}ms` } as CSSProperties}><div className="service-photo" /><div className="service-shade" /><div className="service-top"><span>{service.number}</span><i>↘</i></div><div className="service-card-copy"><p className="service-tag">{service.tag}</p><h3>{service.title}</h3><p>{service.text}</p></div></article>)}</div>
@@ -166,7 +190,7 @@ export default function Home() {
     </section>
 
     <section className="section work one-page-work" id="work">
-      <div className="work-head album-library-head reveal"><div><p className="kicker">The project library</p><h2>Real work.<br /><em>Organized with purpose.</em></h2></div><div className="album-library-summary"><span>06 curated albums</span><p>Explore 77 owner-supplied photographs across complete project collections.</p></div></div>
+      <div className="work-head album-library-head reveal"><div><p className="kicker">The project library</p><h2>Real work.<br /><em>Organized with purpose.</em></h2></div><div className="album-library-summary"><span>06 curated albums</span><p>Explore 76 owner-supplied project photographs across complete collections.</p></div></div>
       <div className="album-toolbar reveal"><p>Browse by project type</p><div className="filter-list" role="group" aria-label="Filter portfolio projects">{projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}</div><span>{String(filteredProjects.length).padStart(2, "0")} collections</span></div>
       <div className="album-grid">
         {filteredProjects.map((project, index) => <article className={`album-card reveal is-visible ${index === 0 && filter === "All" ? "album-featured" : ""}`} key={project.title}>

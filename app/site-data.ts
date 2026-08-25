@@ -73,7 +73,7 @@ export const projects = [
     images: [
       "/FB_IMG_1787623635061.jpg", "/FB_IMG_1787623641540.jpg", "/FB_IMG_1787623649673.jpg",
       "/FB_IMG_1787623654951.jpg", "/FB_IMG_1787623660542.jpg", "/FB_IMG_1787623664212.jpg",
-      "/FB_IMG_1787623668823.jpg", "/FB_IMG_1787623605056.jpg", "/FB_IMG_1787622774260.jpg",
+      "/FB_IMG_1787623668823.jpg", "/FB_IMG_1787623605056.jpg",
     ],
   },
 ];

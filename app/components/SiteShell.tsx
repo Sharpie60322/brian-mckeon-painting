@@ -8,10 +8,10 @@ const route = (path: string) => `${basePath}${path}`;
 const asset = (path: string) => `${basePath}${path}`;
 
 const navigation = [
+  { label: "Recognition", href: "/#recognition" },
   { label: "Services", href: "/#services" },
   { label: "Transformations", href: "/#comparison" },
   { label: "Portfolio", href: "/#work" },
-  { label: "Process", href: "/#process" },
 ];
 
 const legalContent = {
@@ -46,11 +46,31 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+      const pageProgress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+      setScrollProgress(pageProgress);
+      document.documentElement.style.setProperty("--page-progress", pageProgress.toFixed(4));
+
+      const recognition = document.getElementById("recognition");
+      if (recognition) {
+        const rect = recognition.getBoundingClientRect();
+        const travel = Math.max(rect.height - window.innerHeight, 1);
+        const recognitionProgress = Math.min(Math.max(-rect.top / travel, 0), 1);
+        recognition.style.setProperty("--recognition-progress", recognitionProgress.toFixed(4));
+        recognition.style.setProperty("--recognition-copy-y", `${Math.round((1 - recognitionProgress) * 72)}px`);
+        recognition.style.setProperty("--recognition-document-y", `${Math.round(62 - recognitionProgress * 98)}px`);
+        recognition.style.setProperty("--recognition-document-turn", `${(7 - recognitionProgress * 10).toFixed(2)}deg`);
+        recognition.style.setProperty("--recognition-medallion-turn", `${(-4 + recognitionProgress * 7).toFixed(2)}deg`);
+        recognition.style.setProperty("--recognition-stamp-turn", `${(8 - recognitionProgress * 13).toFixed(2)}deg`);
+        recognition.style.setProperty("--recognition-ghost-x", `${(18 - recognitionProgress * 35).toFixed(2)}vw`);
+        recognition.style.setProperty("--recognition-halo-turn", `${Math.round(recognitionProgress * 230)}deg`);
+        recognition.style.setProperty("--recognition-halo-two-turn", `${Math.round(recognitionProgress * -138)}deg`);
+        recognition.style.setProperty("--recognition-content-opacity", `${Math.min(.3 + recognitionProgress * 1.8, 1).toFixed(3)}`);
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, [pathname]);
 
   useEffect(() => {
