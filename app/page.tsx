@@ -13,13 +13,55 @@ const services = [
 ];
 
 const projects = [
-  { title: "Exterior refresh", type: "Residential", note: "Siding · Trim · Detail work", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85" },
-  { title: "Living spaces", type: "Residential", note: "Walls · Ceilings · Trim", image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85" },
-  { title: "Modern workspace", type: "Commercial", note: "Walls · Doors · Finishes", image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85" },
-  { title: "Outdoor living", type: "Outdoor", note: "Decking · Rails · Stain", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85" },
-  { title: "Kitchen renewal", type: "Residential", note: "Cabinetry · Walls · Detail", image: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1400&q=85" },
-  { title: "Clean storefront", type: "Commercial", note: "Interior · Exterior · Touch-ups", image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1400&q=85" },
+  {
+    title: "Blue exterior transformation",
+    type: "Exterior",
+    note: "Siding · Trim · Entry",
+    images: [
+      "/FB_IMG_1787616069960.jpg",
+      "/FB_IMG_1787616054378.jpg",
+      "/FB_IMG_1787616025908.jpg",
+      "/FB_IMG_1787616016254.jpg",
+      "/FB_IMG_1787616064801.jpg",
+      "/FB_IMG_1787616087430.jpg",
+      "/FB_IMG_1787616093875.jpg",
+    ],
+  },
+  {
+    title: "Deck & red exterior refresh",
+    type: "Outdoor",
+    note: "Deck · Siding · Railings",
+    images: [
+      "/FB_IMG_1787616116250.jpg",
+      "/FB_IMG_1787616110560.jpg",
+      "/FB_IMG_1787616113747.jpg",
+    ],
+  },
+  {
+    title: "Historic home exterior",
+    type: "Exterior",
+    note: "Siding · Trim · Details",
+    images: [
+      "/FB_IMG_1787616132492.jpg",
+      "/FB_IMG_1787616142092.jpg",
+      "/FB_IMG_1787616135052.jpg",
+      "/FB_IMG_1787616129533.jpg",
+      "/FB_IMG_1787616145974.jpg",
+    ],
+  },
+  {
+    title: "Custom home theater",
+    type: "Interior",
+    note: "Walls · Ceiling · Trim",
+    images: [
+      "/FB_IMG_1787616198566.jpg",
+      "/FB_IMG_1787616219908.jpg",
+      "/FB_IMG_1787616213924.jpg",
+    ],
+  },
 ];
+
+const projectFilters = ["All", "Exterior", "Interior", "Outdoor"];
 
 const reviews = [
   { quote: "The site can feature a short client story here—what changed, what the experience felt like, and the detail the customer appreciated most.", name: "Verified client name", project: "Interior painting" },
@@ -54,12 +96,18 @@ export default function Home() {
   const [filter, setFilter] = useState("All");
   const [review, setReview] = useState(0);
   const [legalOpen, setLegalOpen] = useState<LegalKey | null>(null);
+  const [selectedProject, setSelectedProject] = useState<(typeof projects)[number] | null>(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
   const filteredProjects = useMemo(
     () => filter === "All" ? projects : projects.filter((project) => project.type === filter),
     [filter],
   );
+
+  useEffect(() => {
+    if (selectedProject) setGalleryIndex(0);
+  }, [selectedProject]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -83,6 +131,7 @@ export default function Home() {
       if (event.key === "Escape") {
         setMenuOpen(false);
         setLegalOpen(null);
+        setSelectedProject(null);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -91,6 +140,11 @@ export default function Home() {
 
   function closeMenu() {
     setMenuOpen(false);
+  }
+
+  function openProject(project: (typeof projects)[number]) {
+    setGalleryIndex(0);
+    setSelectedProject(project);
   }
 
   function submitRequest(event: FormEvent<HTMLFormElement>) {
@@ -215,21 +269,22 @@ export default function Home() {
         <div className="work-head reveal">
           <div><p className="kicker">Selected work</p><h2>Surfaces, <em>transformed.</em></h2></div>
           <div className="filter-list" role="group" aria-label="Filter portfolio projects">
-            {["All", "Residential", "Commercial", "Outdoor"].map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}
+            {projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}
           </div>
         </div>
-        <p className="demo-disclosure reveal">Demo gallery photography — replace with the owner’s completed-project photos before public launch.</p>
+        <p className="demo-disclosure reveal">Completed-project photography from Brian McKeon Painting. Select a project to explore the full gallery.</p>
         <div className="project-grid">
           {filteredProjects.map((project, index) => (
             <article className={`project-card reveal project-${index % 3}`} key={project.title}>
-              <div className="project-image" style={{ backgroundImage: `url(${project.image})` }} role="img" aria-label={`Sample image for ${project.title}`}>
-                <span className="view-project">View project <i>↗</i></span>
-              </div>
+              <button className="project-image" style={{ backgroundImage: `url(${asset(project.images[0])})` }} onClick={() => openProject(project)} aria-label={`View ${project.title} gallery with ${project.images.length} photos`}>
+                <span className="photo-count">{String(project.images.length).padStart(2, "0")} photos</span>
+                <span className="view-project">View gallery <i>↗</i></span>
+              </button>
               <div className="project-meta"><div><p>{project.type}</p><h3>{project.title}</h3></div><span>{project.note}</span></div>
             </article>
           ))}
         </div>
-        <div className="work-cta reveal"><p><span>Have project photos?</span> This gallery is ready for before-and-after images, captions, and job details.</p><a href="#estimate">Add your next project <b>↗</b></a></div>
+        <div className="work-cta reveal"><p><span>Planning something similar?</span> Share the surfaces, timing, and finish you have in mind.</p><a href="#estimate">Request an estimate <b>↗</b></a></div>
       </section>
 
       <section className="process-section">
@@ -312,6 +367,31 @@ export default function Home() {
             <button className="modal-close" onClick={() => setLegalOpen(null)} aria-label="Close">×</button>
             <p className="kicker">Legal placeholder</p><h2 id="legal-title">{legalContent[legalOpen].title}</h2><p>{legalContent[legalOpen].body}</p>
             <button className="button button-primary" onClick={() => setLegalOpen(null)}>Close <span>×</span></button>
+          </section>
+        </div>
+      )}
+
+      {selectedProject && (
+        <div className="modal-backdrop gallery-backdrop" role="presentation" onMouseDown={() => setSelectedProject(null)}>
+          <section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-gallery-title" onMouseDown={(event) => event.stopPropagation()}>
+            <header className="project-modal-head">
+              <div><p>{selectedProject.type} · {galleryIndex + 1} of {selectedProject.images.length}</p><h2 id="project-gallery-title">{selectedProject.title}</h2></div>
+              <button className="gallery-close" onClick={() => setSelectedProject(null)} aria-label="Close project gallery">×</button>
+            </header>
+            <div className="gallery-stage">
+              <img src={asset(selectedProject.images[galleryIndex])} alt={`${selectedProject.title}, photo ${galleryIndex + 1} of ${selectedProject.images.length}`} />
+              {selectedProject.images.length > 1 && <>
+                <button className="gallery-nav gallery-prev" onClick={() => setGalleryIndex((galleryIndex - 1 + selectedProject.images.length) % selectedProject.images.length)} aria-label="Previous photo">←</button>
+                <button className="gallery-nav gallery-next" onClick={() => setGalleryIndex((galleryIndex + 1) % selectedProject.images.length)} aria-label="Next photo">→</button>
+              </>}
+            </div>
+            <div className="gallery-thumbs" aria-label="Choose a project photo">
+              {selectedProject.images.map((image, index) => (
+                <button key={image} className={galleryIndex === index ? "active" : ""} onClick={() => setGalleryIndex(index)} aria-label={`Show photo ${index + 1}`} aria-current={galleryIndex === index ? "true" : undefined}>
+                  <img src={asset(image)} alt="" />
+                </button>
+              ))}
+            </div>
           </section>
         </div>
       )}
