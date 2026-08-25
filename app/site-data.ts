@@ -9,33 +9,72 @@ export const projects = [
   {
     title: "Blue exterior transformation",
     type: "Exterior",
-    note: "Siding · Trim · Entry",
+    note: "Siding · Trim · Deck",
     images: [
-      "/FB_IMG_1787616069960.jpg", "/FB_IMG_1787616054378.jpg", "/FB_IMG_1787616025908.jpg",
-      "/FB_IMG_1787616016254.jpg", "/FB_IMG_1787616064801.jpg", "/FB_IMG_1787616087430.jpg",
-      "/FB_IMG_1787616093875.jpg",
+      "/Project 1 Finished.jpg", "/Project 1 Before.jpg",
+      "/FB_IMG_1787623689538.jpg", "/FB_IMG_1787623694644.jpg", "/FB_IMG_1787623698726.jpg",
+      "/FB_IMG_1787623702219.jpg", "/FB_IMG_1787623708602.jpg", "/FB_IMG_1787623712796.jpg",
+      "/FB_IMG_1787623716927.jpg", "/FB_IMG_1787623720740.jpg", "/FB_IMG_1787623725231.jpg",
+      "/FB_IMG_1787623729478.jpg", "/FB_IMG_1787623732669.jpg", "/FB_IMG_1787623737664.jpg",
+      "/FB_IMG_1787616110560.jpg", "/FB_IMG_1787616113747.jpg", "/FB_IMG_1787616116250.jpg",
     ],
   },
   {
-    title: "Deck & red exterior refresh",
-    type: "Outdoor",
-    note: "Deck · Siding · Railings",
-    images: ["/FB_IMG_1787616116250.jpg", "/FB_IMG_1787616110560.jpg", "/FB_IMG_1787616113747.jpg"],
+    title: "Historic home restoration",
+    type: "Exterior",
+    note: "Clapboards · Trim · Sunroom",
+    images: [
+      "/Project 2 Finished.jpg", "/Project 2 Before.jpg",
+      "/FB_IMG_1787623774588.jpg", "/FB_IMG_1787623779776.jpg", "/FB_IMG_1787623783072.jpg",
+      "/FB_IMG_1787623787695.jpg", "/FB_IMG_1787623791037.jpg", "/FB_IMG_1787623795511.jpg",
+      "/FB_IMG_1787623799591.jpg", "/FB_IMG_1787623802997.jpg", "/FB_IMG_1787623806868.jpg",
+      "/FB_IMG_1787623811668.jpg", "/FB_IMG_1787623815488.jpg", "/FB_IMG_1787623819208.jpg",
+      "/FB_IMG_1787623822851.jpg", "/FB_IMG_1787623826610.jpg", "/FB_IMG_1787623830786.jpg",
+      "/FB_IMG_1787623834574.jpg", "/FB_IMG_1787623839551.jpg", "/FB_IMG_1787623844972.jpg",
+      "/FB_IMG_1787623849463.jpg", "/FB_IMG_1787623853651.jpg", "/FB_IMG_1787623857859.jpg",
+      "/FB_IMG_1787623861870.jpg", "/FB_IMG_1787623866190.jpg",
+    ],
   },
   {
-    title: "Historic home exterior",
+    title: "Foundation & grounds refresh",
     type: "Exterior",
-    note: "Siding · Trim · Details",
+    note: "Foundation · Trim · Exterior details",
     images: [
-      "/FB_IMG_1787616132492.jpg", "/FB_IMG_1787616142092.jpg", "/FB_IMG_1787616135052.jpg",
-      "/FB_IMG_1787616129533.jpg", "/FB_IMG_1787616145974.jpg",
+      "/FB_IMG_1787622609381.jpg", "/FB_IMG_1787623530867.jpg", "/FB_IMG_1787623551883.jpg",
+      "/FB_IMG_1787623560575.jpg", "/FB_IMG_1787623568060.jpg", "/FB_IMG_1787623575619.jpg",
+      "/FB_IMG_1787623582794.jpg", "/FB_IMG_1787623591274.jpg", "/FB_IMG_1787623598716.jpg",
+    ],
+  },
+  {
+    title: "Deck preparation & stair work",
+    type: "Outdoor",
+    note: "Deck boards · Steps · Railings",
+    images: [
+      "/FB_IMG_1787622544468.jpg", "/FB_IMG_1787622550243.jpg", "/FB_IMG_1787622963354.jpg",
+      "/FB_IMG_1787622971032.jpg", "/FB_IMG_1787623907293.jpg", "/FB_IMG_1787623911302.jpg",
+      "/FB_IMG_1787623915166.jpg", "/FB_IMG_1787623920404.jpg",
     ],
   },
   {
     title: "Custom home theater",
     type: "Interior",
     note: "Walls · Ceiling · Trim",
-    images: ["/theater-wide-hd.webp", "/theater-room-hd.webp", "/theater-detail-hd.webp"],
+    images: [
+      "/theater-wide-hd.webp", "/theater-room-hd.webp", "/theater-detail-hd.webp",
+      "/FB_IMG_1787623010894.jpg", "/FB_IMG_1787623019524.jpg",
+      "/FB_IMG_1787616198566.jpg", "/FB_IMG_1787616213924.jpg", "/FB_IMG_1787616219908.jpg",
+      "/Screenshot_2026-08-24-21-49-25-48_a23b203fd3aafc6dcb84e438dda678b6.jpg",
+    ],
+  },
+  {
+    title: "Community storefront & specialty pieces",
+    type: "Commercial",
+    note: "Storefront · Benches · Tables · Sign",
+    images: [
+      "/FB_IMG_1787623635061.jpg", "/FB_IMG_1787623641540.jpg", "/FB_IMG_1787623649673.jpg",
+      "/FB_IMG_1787623654951.jpg", "/FB_IMG_1787623660542.jpg", "/FB_IMG_1787623664212.jpg",
+      "/FB_IMG_1787623668823.jpg", "/FB_IMG_1787623605056.jpg", "/FB_IMG_1787622774260.jpg",
+    ],
   },
 ];
 
@@ -45,4 +84,4 @@ export const reviews = [
   { quote: "Add an owner-approved review here, ideally with the project type and town. Specific feedback always feels more credible than generic praise.", name: "Verified client name", project: "Deck refinishing" },
 ];
 
-export const projectFilters = ["All", "Exterior", "Interior", "Outdoor"];
+export const projectFilters = ["All", "Exterior", "Interior", "Outdoor", "Commercial"];

@@ -531,6 +531,10 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
 .transformation-intro { max-width: 470px; padding: 28px 0 5px; border-top: 1px solid rgba(255,255,255,.2); }
 .transformation-intro span { display: block; margin-bottom: 15px; color: var(--cyan); font-size: 8px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
 .transformation-intro p { margin: 0; color: #b0c2d1; font-size: 14px; line-height: 1.8; }
+.transformation-flip { margin-top: 24px; display: flex; align-items: center; gap: 14px; }
+.transformation-flip button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; color: white; background: rgba(255,255,255,.04); cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease; }
+.transformation-flip button:hover { color: var(--navy); border-color: var(--gold); background: var(--gold); transform: translateY(-2px); }
+.transformation-flip b { color: white; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
 
 .transformation-selector { margin: 70px 0 24px; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(255,255,255,.15); background: rgba(3,21,47,.46); box-shadow: 0 28px 75px rgba(0,0,0,.2); backdrop-filter: blur(12px); }
 .transformation-selector button { min-width: 0; min-height: 120px; padding: 16px 20px; display: grid; grid-template-columns: 88px 1fr auto; gap: 18px; align-items: center; border: 0; border-right: 1px solid rgba(255,255,255,.13); color: white; background: transparent; text-align: left; cursor: pointer; position: relative; transition: background .3s ease, color .3s ease; }
