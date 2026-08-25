@@ -198,8 +198,20 @@ export default function Home() {
     </section>
 
     <section className="section work one-page-work" id="work">
-      <div className="work-head album-library-head reveal"><div><p className="kicker">The project library</p><h2>Real work.<br /><em>Organized with purpose.</em></h2></div><div className="album-library-summary"><span>06 curated albums</span><p>Explore 76 owner-supplied project photographs across complete collections.</p></div></div>
-      <div className="album-toolbar reveal"><p>Browse by project type</p><div className="filter-list" role="group" aria-label="Filter portfolio projects">{projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}</div><span>{String(filteredProjects.length).padStart(2, "0")} collections</span></div>
+      <div className="portfolio-index reveal">
+        <span className="portfolio-index-watermark" aria-hidden="true">WORK</span>
+        <span className="portfolio-index-orbit" aria-hidden="true" />
+        <div className="portfolio-index-top">
+          <div className="portfolio-index-title"><p className="kicker light"><span aria-hidden="true" />The project library</p><h2>Real work.<br /><em>Organized with purpose.</em></h2></div>
+          <div className="portfolio-index-counter" aria-label="Six curated project albums"><span>Collection archive</span><p><b>06</b><i>/</i><small>albums</small></p><em>76 owner-supplied project photographs</em></div>
+        </div>
+        <div className="portfolio-index-line" aria-hidden="true"><span /></div>
+        <div className="portfolio-index-bottom">
+          <div className="portfolio-index-instruction"><span>Filter the archive</span><p>Choose a project type to focus the collection.</p></div>
+          <div className="filter-list portfolio-filter" role="group" aria-label="Filter portfolio projects">{projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item}</button>)}</div>
+          <div className="portfolio-result-count" aria-live="polite"><b>{String(filteredProjects.length).padStart(2, "0")}</b><span>collections<br />in view</span></div>
+        </div>
+      </div>
       <div className="album-grid">
         {filteredProjects.map((project, index) => <article className={`album-card reveal is-visible ${index === 0 && filter === "All" ? "album-featured" : ""}`} key={project.title}>
           <button className="album-cover" onClick={() => setSelectedProject(project)} aria-label={`View ${project.title} gallery with ${project.images.length} photos`}>
