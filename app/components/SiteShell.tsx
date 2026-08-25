@@ -8,10 +8,10 @@ const route = (path: string) => `${basePath}${path}`;
 const asset = (path: string) => `${basePath}${path}`;
 
 const navigation = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services/" },
-  { label: "Portfolio", href: "/work/" },
-  { label: "About", href: "/about/" },
+  { label: "Services", href: "/#services" },
+  { label: "Portfolio", href: "/#work" },
+  { label: "Reviews", href: "/#reviews" },
+  { label: "About", href: "/#about" },
 ];
 
 const legalContent = {
@@ -64,17 +64,15 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     return () => { window.removeEventListener("keydown", onKeyDown); observer.disconnect(); };
   }, [pathname]);
 
-  const isActive = (href: string) => href === "/" ? pathname === basePath || pathname === `${basePath}/` : pathname.startsWith(`${basePath}${href}`);
-
   return <>
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
-      <a className="brand" href={route("/")} aria-label="Brian McKeon Painting home">
-        <span className="brand-mark"><img src={asset("/bmp-mark.jpeg")} alt="" /></span>
+      <a className="brand" href={route("/#top")} aria-label="Brian McKeon Painting home">
+        <span className="brand-mark"><img src={asset("/bmp-mark-hd.webp")} alt="" /></span>
         <span><strong>Brian McKeon</strong><small>Painting</small></span>
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
-        {navigation.map((item) => <a key={item.label} className={isActive(item.href) ? "active" : ""} href={route(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>)}
-        <a className="nav-cta" href={route("/contact/")}>Request an estimate</a>
+        {navigation.map((item) => <a key={item.label} href={route(item.href)}>{item.label}</a>)}
+        <a className="nav-cta" href={route("/#estimate")}>Request an estimate</a>
       </nav>
       <button className={`menu-button ${menuOpen ? "active" : ""}`} type="button" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
       <span className="scroll-progress" style={{ transform: `scaleX(${scrollProgress})` }} aria-hidden="true" />
@@ -83,7 +81,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     <div className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
       <div className="mobile-menu-inner">
         <p>Explore</p>
-        {[...navigation, { label: "Request an estimate", href: "/contact/" }].map((item, index) => <a key={item.label} href={route(item.href)} onClick={() => setMenuOpen(false)}><span>0{index + 1}</span>{item.label}</a>)}
+        {[...navigation, { label: "Request an estimate", href: "/#estimate" }].map((item, index) => <a key={item.label} href={route(item.href)} onClick={() => setMenuOpen(false)}><span>0{index + 1}</span>{item.label}</a>)}
         <div className="mobile-contact"><span>Prefer to talk?</span><a href="tel:+16038581206">603 858 1206</a></div>
       </div>
     </div>
@@ -91,16 +89,16 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     <main>{children}</main>
 
     <footer>
-      <div className="footer-brand"><img className="footer-full-brand" src={asset("/bmp-brand-hd.webp")} alt="Brian McKeon Painting, 603 858 1206" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href={route("/contact/")}>Request an estimate <span>↗</span></a></div></div>
+      <div className="footer-brand"><img className="footer-full-brand" src={asset("/bmp-brand-hd.webp")} alt="Brian McKeon Painting, 603 858 1206" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href={route("/#estimate")}>Request an estimate <span>↗</span></a></div></div>
       <div className="footer-grid">
         <div><p>Brian McKeon Painting</p><span>Residential · Commercial · Specialty</span><a href="tel:+16038581206">603 858 1206</a><a className="footer-email" href="mailto:b.mckeonpainting@gmail.com">b.mckeonpainting@gmail.com</a></div>
-        <div><p>Explore</p>{navigation.map((item) => <a key={item.label} href={route(item.href)}>{item.label}</a>)}<a href={route("/contact/")}>Contact</a></div>
+        <div><p>Explore</p>{navigation.map((item) => <a key={item.label} href={route(item.href)}>{item.label}</a>)}<a href={route("/#estimate")}>Contact</a></div>
         <div><p>Legal &amp; trust</p><button onClick={() => setLegalOpen("privacy")}>Privacy notice</button><button onClick={() => setLegalOpen("terms")}>Website terms</button><button onClick={() => setLegalOpen("insurance")}>Insurance disclosure</button><button onClick={() => setLegalOpen("accessibility")}>Accessibility</button></div>
       </div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Brian McKeon Painting. Demo website.</span><a href="#top">Back to top ↑</a></div>
     </footer>
 
-    <a className="mobile-estimate" href={route("/contact/")}>Request an estimate <span>↗</span></a>
+    <a className="mobile-estimate" href={route("/#estimate")}>Request an estimate <span>↗</span></a>
 
     {legalOpen && <div className="modal-backdrop" role="presentation" onMouseDown={() => setLegalOpen(null)}><section className="legal-modal" role="dialog" aria-modal="true" aria-labelledby="legal-title" onMouseDown={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setLegalOpen(null)} aria-label="Close">×</button><p className="kicker">Legal placeholder</p><h2 id="legal-title">{legalContent[legalOpen].title}</h2><p>{legalContent[legalOpen].body}</p><button className="button button-primary" onClick={() => setLegalOpen(null)}>Close <span>×</span></button></section></div>}
   </>;

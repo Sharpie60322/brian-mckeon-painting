@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Brian McKeon Painting | Residential & Commercial Painting",
   description: "Professional painting for homes, decks, businesses, fences, furniture, and more. General liability insured.",
   metadataBase,
-  icons: { icon: absoluteAsset("/bmp-mark.jpeg"), apple: absoluteAsset("/bmp-mark.jpeg") },
+  icons: { icon: absoluteAsset("/bmp-mark-hd.png"), apple: absoluteAsset("/bmp-mark-hd.png") },
   openGraph: {
     title: "Brian McKeon Painting",
     description: "Craftsmanship in every coat. Residential, commercial, outdoor, and specialty painting.",

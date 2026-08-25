@@ -1,7 +1,7 @@
 export const services = [
   { number: "01", title: "Homes", text: "Interiors, exteriors, trim, doors, ceilings, and detailed finish work for lived-in spaces.", tag: "Residential", image: "/FB_IMG_1787616069960.jpg" },
   { number: "02", title: "Decks & fences", text: "Preparation, paint, and stain systems that help outdoor surfaces stand up to the elements.", tag: "Outdoor", image: "/FB_IMG_1787616116250.jpg" },
-  { number: "03", title: "Businesses", text: "Professional painting for offices, storefronts, rentals, and light commercial environments.", tag: "Commercial", image: "/FB_IMG_1787616198566.jpg" },
+  { number: "03", title: "Businesses", text: "Professional painting for offices, storefronts, rentals, and light commercial environments.", tag: "Commercial", image: "/theater-wide-hd.webp" },
   { number: "04", title: "Objects & more", text: "Picnic tables, furniture, sheds, railings, and one-off projects that still deserve a fine finish.", tag: "Specialty", image: "/FB_IMG_1787616132492.jpg" },
 ];
 
@@ -35,7 +35,7 @@ export const projects = [
     title: "Custom home theater",
     type: "Interior",
     note: "Walls · Ceiling · Trim",
-    images: ["/FB_IMG_1787616198566.jpg", "/FB_IMG_1787616219908.jpg", "/FB_IMG_1787616213924.jpg"],
+    images: ["/theater-wide-hd.webp", "/theater-room-hd.webp", "/theater-detail-hd.webp"],
   },
 ];
 

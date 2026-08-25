@@ -471,3 +471,52 @@ footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radi
   footer .footer-brand { grid-template-columns: 1fr; gap: 36px; }
   footer .footer-brand .footer-full-brand { width: min(100%, 440px); height: auto; }
 }
+
+/* Cohesive one-page edition */
+#services, #about, #comparison, #work, #process, #reviews, #insurance, #estimate, #questions { scroll-margin-top: 72px; }
+.brand-mark { padding: 3px; background: #071d40; }
+.brand-mark img { object-fit: contain; }
+.hero-calm .hero-logo-frame,
+.hero-calm .hero-aurora,
+.hero-calm::after,
+.hero-calm .hero-proof { transform: none; transition: none; }
+.hero-calm .orbit-one { animation: orbitPulse 14s ease-in-out infinite; }
+.hero-calm .orbit-two { animation-duration: 90s; }
+.hero-calm .logo-spark { animation-duration: 7s; }
+.manifesto-seal img { object-fit: contain; border-radius: 0; }
+.comparison-disclosure { display: block; margin-top: 25px; color: #6b7d8d; font-size: 9px; line-height: 1.6; letter-spacing: .05em; }
+.one-page-work { background: #f0eadf; }
+.one-page-work .work-head { margin-bottom: 22px; }
+.one-page-project-grid { margin-top: 52px; align-items: start; gap: 70px 24px; }
+.one-page-project-grid .project-feature-1 { grid-column: 1 / span 7; }
+.one-page-project-grid .project-feature-2 { grid-column: 8 / span 5; margin-top: 120px; }
+.one-page-project-grid .project-feature-3 { grid-column: 3 / span 8; }
+.one-page-project-grid .project-feature-1 .project-image { height: 640px; }
+.one-page-project-grid .project-feature-2 .project-image { height: 520px; }
+.one-page-project-grid .project-feature-3 .project-image { height: 560px; }
+.one-page-project-grid .project-feature-4 { grid-column: 2 / span 10; }
+.one-page-project-grid .project-image { box-shadow: 0 28px 75px rgba(6,27,61,.14); }
+.one-page-project-grid .project-card { transition: opacity .35s ease; }
+.one-page-project-grid .project-card.is-visible { opacity: 1; transform: none; }
+.estimate-section { scroll-margin-top: 72px; }
+
+@media (max-width: 900px) {
+  .one-page-project-grid .project-feature-1 { grid-column: 1 / span 7; }
+  .one-page-project-grid .project-feature-2 { grid-column: 8 / span 5; margin-top: 90px; }
+  .one-page-project-grid .project-feature-3 { grid-column: 2 / span 10; }
+}
+
+@media (max-width: 620px) {
+  #services, #about, #comparison, #work, #process, #reviews, #insurance, #estimate, #questions { scroll-margin-top: 68px; }
+  .hero-calm .orbit-two { animation: none; }
+  .one-page-project-grid { gap: 48px; }
+  .one-page-project-grid .project-feature-1,
+  .one-page-project-grid .project-feature-2,
+  .one-page-project-grid .project-feature-3,
+  .one-page-project-grid .project-feature-4 { grid-column: 1; margin-top: 0; }
+  .one-page-project-grid .project-feature-1 .project-image,
+  .one-page-project-grid .project-feature-2 .project-image,
+  .one-page-project-grid .project-feature-3 .project-image,
+  .one-page-project-grid .project-feature-4 .project-image { height: 390px; }
+  .comparison-disclosure { font-size: 8px; }
+}
