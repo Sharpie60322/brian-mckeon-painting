@@ -2,29 +2,40 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SiteShell from "./components/SiteShell";
 
-const siteOrigin = process.env.SITE_ORIGIN ?? "http://localhost:3000";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const metadataBase = new URL(`${siteOrigin.replace(/\/$/, "")}${basePath}/`);
-const absoluteAsset = (path: string) => new URL(`${basePath}${path}`, siteOrigin).toString();
+const publicSiteUrl = "https://sharpie60322.github.io/brian-mckeon-painting/";
+const metadataBase = new URL(publicSiteUrl);
+const socialImageUrl = new URL("og-social-v2.jpg", metadataBase).toString();
+const iconUrl = new URL("bmp-mark-hd.png", metadataBase).toString();
 
 export const metadata: Metadata = {
   title: "Brian McKeon Painting | Residential & Commercial Painting",
   description: "Professional painting for homes, decks, businesses, fences, furniture, and more. General liability insured.",
   metadataBase,
-  icons: { icon: absoluteAsset("/bmp-mark-hd.png"), apple: absoluteAsset("/bmp-mark-hd.png") },
+  alternates: { canonical: publicSiteUrl },
+  icons: { icon: iconUrl, apple: iconUrl },
   openGraph: {
     title: "Brian McKeon Painting",
     description: "Craftsmanship in every coat. Residential, commercial, outdoor, and specialty painting.",
     type: "website",
-    url: metadataBase,
-    images: [{ url: absoluteAsset("/og.png"), width: 1536, height: 872, alt: "Brian McKeon Painting — Craftsmanship in every coat." }],
+    url: publicSiteUrl,
+    siteName: "Brian McKeon Painting",
+    locale: "en_US",
+    images: [{
+      url: socialImageUrl,
+      secureUrl: socialImageUrl,
+      type: "image/jpeg",
+      width: 1200,
+      height: 630,
+      alt: "Brian McKeon Painting — Craftsmanship in every coat.",
+    }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Brian McKeon Painting",
     description: "Craftsmanship in every coat. Residential, commercial, outdoor, and specialty painting.",
-    images: [absoluteAsset("/og.png")],
+    images: [{ url: socialImageUrl, alt: "Brian McKeon Painting — Craftsmanship in every coat." }],
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
