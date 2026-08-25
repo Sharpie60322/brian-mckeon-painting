@@ -22,28 +22,28 @@ const transformations = [
   },
   {
     number: "02",
-    shortTitle: "Project 1",
+    shortTitle: "Blue-gray exterior",
     title: "A complete exterior transformation from prep to finish.",
-    description: "The owner-supplied preparation and finished photos show the full scope of this siding, trim, and lower-level exterior project.",
+    description: "The real preparation photograph is paired with an angle-matched completion view based on the owner’s supplied finished reference, so every architectural line stays locked while you compare the coating work.",
     before: "/Project 1 Before.jpg",
-    after: "/Project 1 Finished.jpg",
+    after: "/project-1-finished-angle-matched.webp",
     beforeAlt: "Owner-supplied Project 1 exterior during preparation",
-    afterAlt: "Owner-supplied Project 1 completed blue-gray exterior",
+    afterAlt: "Angle-matched visualization of the completed blue-gray Project 1 exterior",
     facts: ["Extensive scrape & sand", "Siding and trim preparation", "Blue-gray finish · white trim"],
-    view: "Owner-supplied project photos",
+    view: "Matched to the real before frame",
     finish: "Blue-gray exterior",
   },
   {
     number: "03",
-    shortTitle: "Project 2",
+    shortTitle: "Historic sunroom",
     title: "Historic details restored with a clean, lasting finish.",
-    description: "The supplied before and finished photographs document the restoration of heavily weathered siding, windows, and detailed exterior trim.",
+    description: "The real weathered view is paired with an angle-matched completion study based on the owner’s finished reference, making the restored clapboards and detailed trim easy to compare in place.",
     before: "/Project 2 Before.jpg",
-    after: "/Project 2 Finished.jpg",
+    after: "/project-2-finished-angle-matched.webp",
     beforeAlt: "Owner-supplied Project 2 historic exterior before restoration",
-    afterAlt: "Owner-supplied Project 2 historic exterior after restoration",
+    afterAlt: "Angle-matched visualization of the completed Project 2 historic exterior",
     facts: ["Loose coating removed", "Detailed woodwork prepared", "Clean white finish"],
-    view: "Owner-supplied project photos",
+    view: "Matched to the real before frame",
     finish: "Restored white exterior",
   },
 ] as const;
@@ -71,10 +71,15 @@ export default function Home() {
 
   useEffect(() => { if (selectedProject) setGalleryIndex(0); }, [selectedProject]);
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => event.key === "Escape" && setSelectedProject(null);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedProject(null);
+      if (!selectedProject || selectedProject.images.length < 2) return;
+      if (event.key === "ArrowLeft") setGalleryIndex((current) => (current - 1 + selectedProject.images.length) % selectedProject.images.length);
+      if (event.key === "ArrowRight") setGalleryIndex((current) => (current + 1) % selectedProject.images.length);
+    };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [selectedProject]);
 
   function submitRequest(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -152,7 +157,7 @@ export default function Home() {
       </div>
 
       <div className="transformation-stage" id="transformation-panel" role="tabpanel" aria-live="polite">
-        <div className="comparison-copy" key={`copy-${comparisonProject}`}><p className="kicker">Case study {activeTransformation.number}</p><h3>{activeTransformation.title}</h3><p>{activeTransformation.description}</p><div className="comparison-facts">{activeTransformation.facts.map((fact, index) => <p key={fact}><span>0{index + 1}</span><b>{fact}</b></p>)}</div><small className="comparison-disclosure">All three studies are based on owner-supplied project photography. Project 1 and Project 2 use the supplied before and finished files directly.</small></div>
+        <div className="comparison-copy" key={`copy-${comparisonProject}`}><p className="kicker">Case study {activeTransformation.number}</p><h3>{activeTransformation.title}</h3><p>{activeTransformation.description}</p><div className="comparison-facts">{activeTransformation.facts.map((fact, index) => <p key={fact}><span>0{index + 1}</span><b>{fact}</b></p>)}</div><small className="comparison-disclosure">Every before image is owner-supplied. Studies 02 and 03 use angle-matched completion visualizations derived from the owner’s real finished reference photos; those originals remain in the project galleries.</small></div>
         <div className="comparison-wrap" style={{ "--reveal": `${comparison}%` } as CSSProperties} key={`slider-${comparisonProject}`}>
           <div className="comparison-frame"><img className="comparison-after" src={asset(activeTransformation.after)} alt={activeTransformation.afterAlt} /><div className="comparison-before"><img src={asset(activeTransformation.before)} alt={activeTransformation.beforeAlt} /></div><div className="comparison-divider"><span>↔</span></div><span className="comparison-label label-before">Preparation</span><span className="comparison-label label-after">Completed</span><input type="range" min="3" max="97" value={comparison} onChange={(event) => setComparison(Number(event.target.value))} aria-label={`Compare preparation and completed states for ${activeTransformation.shortTitle}`} /></div>
           <div className="comparison-caption"><p><span>Viewpoint</span>{activeTransformation.view}</p><p><span>Completed finish</span>{activeTransformation.finish}</p><p className="drag-note"><span aria-hidden="true">↔</span> Drag across the image</p></div>
@@ -161,9 +166,20 @@ export default function Home() {
     </section>
 
     <section className="section work one-page-work" id="work">
-      <div className="work-head reveal"><div><p className="kicker">Owner-provided project photography</p><h2>Actual projects.<br /><em>Closer look.</em></h2></div><div className="filter-list" role="group" aria-label="Filter portfolio projects">{projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}</div></div>
-      <p className="demo-disclosure reveal">Six grouped project galleries now organize all 77 supplied images. Select any project to move through its complete photo set; the featured theater images were clarity-enhanced from the owner’s originals.</p>
-      <div className="project-grid one-page-project-grid">{filteredProjects.map((project, index) => <article className={`project-card project-feature project-feature-${(index % 3) + 1} is-visible`} key={project.title}><button className="project-image" style={{ backgroundImage: `url(${asset(project.images[0])})` }} onClick={() => setSelectedProject(project)} aria-label={`View ${project.title} gallery with ${project.images.length} photos`}><span className="photo-count">{String(project.images.length).padStart(2, "0")} photos</span><span className="view-project">Open gallery <i>↗</i></span></button><div className="project-meta"><div><p>{project.type}</p><h3>{project.title}</h3></div><span>{project.note}</span></div></article>)}</div>
+      <div className="work-head album-library-head reveal"><div><p className="kicker">The project library</p><h2>Real work.<br /><em>Organized with purpose.</em></h2></div><div className="album-library-summary"><span>06 curated albums</span><p>Explore 77 owner-supplied photographs across complete project collections.</p></div></div>
+      <div className="album-toolbar reveal"><p>Browse by project type</p><div className="filter-list" role="group" aria-label="Filter portfolio projects">{projectFilters.map((item) => <button key={item} className={filter === item ? "active" : ""} onClick={() => setFilter(item)}>{item}</button>)}</div><span>{String(filteredProjects.length).padStart(2, "0")} collections</span></div>
+      <div className="album-grid">
+        {filteredProjects.map((project, index) => <article className={`album-card reveal is-visible ${index === 0 && filter === "All" ? "album-featured" : ""}`} key={project.title}>
+          <button className="album-cover" onClick={() => setSelectedProject(project)} aria-label={`View ${project.title} gallery with ${project.images.length} photos`}>
+            <span className="album-cover-main"><img src={asset(project.images[0])} alt={`${project.title} featured project view`} loading={index < 2 ? "eager" : "lazy"} decoding="async" /></span>
+            <span className="album-cover-pair"><img src={asset(project.images[1] ?? project.images[0])} alt="" loading="lazy" decoding="async" /><img src={asset(project.images[2] ?? project.images[0])} alt="" loading="lazy" decoding="async" /></span>
+            <span className="album-photo-count">{String(project.images.length).padStart(2, "0")} photos</span>
+            <span className="album-open"><b>View project</b><i>↗</i></span>
+          </button>
+          <div className="album-details"><span className="album-index">{String(index + 1).padStart(2, "0")}</span><div><p>{project.type}</p><h3>{project.title}</h3><span>{project.note}</span></div><button type="button" onClick={() => setSelectedProject(project)} aria-label={`Open ${project.title}`}>Open album <i>→</i></button></div>
+        </article>)}
+      </div>
+      <p className="album-disclosure">All galleries use the owner’s supplied project photography. The three custom home theater lead images were clarity-enhanced from those originals.</p>
     </section>
 
     <section className="process-section" id="process">
@@ -186,6 +202,6 @@ export default function Home() {
 
     <section className="faq-section" id="questions"><div className="faq-head reveal"><p className="kicker">Before we begin</p><h2>Common <em>questions.</em></h2></div><div className="faq-list reveal"><details><summary>What kinds of projects do you take on?<span>+</span></summary><p>Homes, decks, fences, businesses, picnic tables, furniture, and other paintable objects. Final project minimums and availability should be confirmed with the owner.</p></details><details><summary>Is Brian McKeon Painting insured?<span>+</span></summary><p>The owner has confirmed general liability coverage. Carrier, limits, policy reference, and effective dates can be added after verification.</p></details><details><summary>How do estimates work?<span>+</span></summary><p>Use the form or call to share the project. Brian can then confirm the preferred review, written estimate, scheduling, and deposit process.</p></details><details><summary>Does the website store my information?<span>+</span></summary><p>No. The form prepares a message in your own email application for you to review and send.</p></details></div></section>
 
-    {selectedProject && <div className="modal-backdrop gallery-backdrop" role="presentation" onMouseDown={() => setSelectedProject(null)}><section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-gallery-title" onMouseDown={(event) => event.stopPropagation()}><header className="project-modal-head"><div><p>{selectedProject.type} · {galleryIndex + 1} of {selectedProject.images.length}</p><h2 id="project-gallery-title">{selectedProject.title}</h2></div><button className="gallery-close" onClick={() => setSelectedProject(null)} aria-label="Close project gallery">×</button></header><div className="gallery-stage"><img src={asset(selectedProject.images[galleryIndex])} alt={`${selectedProject.title}, photo ${galleryIndex + 1} of ${selectedProject.images.length}`} />{selectedProject.images.length > 1 && <><button className="gallery-nav gallery-prev" onClick={() => setGalleryIndex((galleryIndex - 1 + selectedProject.images.length) % selectedProject.images.length)} aria-label="Previous photo">←</button><button className="gallery-nav gallery-next" onClick={() => setGalleryIndex((galleryIndex + 1) % selectedProject.images.length)} aria-label="Next photo">→</button></>}</div><div className="gallery-thumbs" aria-label="Choose a project photo">{selectedProject.images.map((image, index) => <button key={image} className={galleryIndex === index ? "active" : ""} onClick={() => setGalleryIndex(index)} aria-label={`Show photo ${index + 1}`} aria-current={galleryIndex === index ? "true" : undefined}><img src={asset(image)} alt="" loading="lazy" decoding="async" /></button>)}</div></section></div>}
+    {selectedProject && <div className="modal-backdrop gallery-backdrop" role="presentation" onMouseDown={() => setSelectedProject(null)}><section className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-gallery-title" onMouseDown={(event) => event.stopPropagation()}><header className="project-modal-head"><div className="gallery-heading"><p>{selectedProject.type} · Project album</p><h2 id="project-gallery-title">{selectedProject.title}</h2><span>{selectedProject.note}</span></div><div className="gallery-status"><b>{String(galleryIndex + 1).padStart(2, "0")}</b><i>/</i><span>{String(selectedProject.images.length).padStart(2, "0")}</span></div><button className="gallery-close" onClick={() => setSelectedProject(null)} aria-label="Close project gallery">×</button><div className="gallery-progress" aria-hidden="true"><span style={{ transform: `scaleX(${(galleryIndex + 1) / selectedProject.images.length})` }} /></div></header><div className="gallery-stage"><img src={asset(selectedProject.images[galleryIndex])} alt={`${selectedProject.title}, photo ${galleryIndex + 1} of ${selectedProject.images.length}`} />{selectedProject.images.length > 1 && <><button className="gallery-nav gallery-prev" onClick={() => setGalleryIndex((galleryIndex - 1 + selectedProject.images.length) % selectedProject.images.length)} aria-label="Previous photo">←</button><button className="gallery-nav gallery-next" onClick={() => setGalleryIndex((galleryIndex + 1) % selectedProject.images.length)} aria-label="Next photo">→</button></>}</div><footer className="gallery-footer"><p><b>Project photography</b><span>Use arrow keys or select a thumbnail</span></p><div className="gallery-thumbs" aria-label="Choose a project photo">{selectedProject.images.map((image, index) => <button key={image} className={galleryIndex === index ? "active" : ""} onClick={() => setGalleryIndex(index)} aria-label={`Show photo ${index + 1}`} aria-current={galleryIndex === index ? "true" : undefined}><img src={asset(image)} alt="" loading="lazy" decoding="async" /><span>{String(index + 1).padStart(2, "0")}</span></button>)}</div></footer></section></div>}
   </>;
 }
