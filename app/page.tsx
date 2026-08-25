@@ -44,7 +44,7 @@ export default function Home() {
         <div className="logo-orbit orbit-two" aria-hidden="true" />
         <span className="logo-spark spark-one" aria-hidden="true">✦</span>
         <span className="logo-spark spark-two" aria-hidden="true">✦</span>
-        <div className="hero-logo-frame"><img src={asset("/bmp-brand.jpeg")} alt="Brian McKeon Painting, 603 858 1206" /></div>
+        <div className="hero-logo-frame"><img src={asset("/bmp-brand-hd.webp")} alt="Brian McKeon Painting, 603 858 1206" /></div>
         <div className="hero-proof"><i>✓</i><p><small>Protected workmanship</small><b>General liability insured</b></p></div>
         <div className="hero-edition"><span>BMP</span><small>Craft · Color · Care</small></div>
       </div>

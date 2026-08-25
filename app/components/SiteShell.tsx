@@ -91,7 +91,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     <main>{children}</main>
 
     <footer>
-      <div className="footer-brand"><img src={asset("/bmp-mark.jpeg")} alt="BMP paintbrush emblem" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href={route("/contact/")}>Request an estimate <span>↗</span></a></div></div>
+      <div className="footer-brand"><img className="footer-full-brand" src={asset("/bmp-brand-hd.webp")} alt="Brian McKeon Painting, 603 858 1206" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href={route("/contact/")}>Request an estimate <span>↗</span></a></div></div>
       <div className="footer-grid">
         <div><p>Brian McKeon Painting</p><span>Residential · Commercial · Specialty</span><a href="tel:+16038581206">603 858 1206</a><a className="footer-email" href="mailto:b.mckeonpainting@gmail.com">b.mckeonpainting@gmail.com</a></div>
         <div><p>Explore</p>{navigation.map((item) => <a key={item.label} href={route(item.href)}>{item.label}</a>)}<a href={route("/contact/")}>Contact</a></div>

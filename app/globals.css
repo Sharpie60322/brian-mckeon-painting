@@ -384,7 +384,8 @@ footer { color: white; background: #04152f; padding: 100px clamp(24px, 6vw, 96px
 .page-cta-premium .cta-copy > div { display: flex; align-items: center; gap: 28px; }
 .page-cta-premium .cta-copy > div > a:last-child { padding-bottom: 6px; border-bottom: 1px solid var(--gold); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
 
-footer .footer-brand img { width: 156px; height: 156px; box-shadow: 0 0 0 1px rgba(232,180,94,.22), 0 24px 50px rgba(0,0,0,.22); }
+footer .footer-brand { grid-template-columns: minmax(300px, 480px) 1fr; gap: clamp(36px, 6vw, 90px); }
+footer .footer-brand .footer-full-brand { width: 100%; height: auto; border-radius: 0; mix-blend-mode: screen; box-shadow: none; filter: drop-shadow(0 25px 38px rgba(0,0,0,.3)); }
 
 @keyframes heroLogoIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes orbitPulse { 0%,100% { transform: scale(.96); opacity: .65; } 50% { transform: scale(1.04); opacity: 1; } }
@@ -467,5 +468,6 @@ footer .footer-brand img { width: 156px; height: 156px; box-shadow: 0 0 0 1px rg
   .page-cta-premium h2 { font-size: clamp(46px, 14vw, 64px); }
   .page-cta-premium .cta-copy > div { align-items: stretch; flex-direction: column; }
   .page-cta-premium .cta-copy > div > a:last-child { align-self: flex-start; }
-  footer .footer-brand img { width: 82px; height: 82px; }
+  footer .footer-brand { grid-template-columns: 1fr; gap: 36px; }
+  footer .footer-brand .footer-full-brand { width: min(100%, 440px); height: auto; }
 }
