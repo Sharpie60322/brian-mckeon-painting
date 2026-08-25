@@ -118,9 +118,14 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
     <footer>
       <div className="footer-brand"><img className="footer-full-brand" src={asset("/bmp-brand-hd.webp")} alt="Brian McKeon Painting, 603 858 1206" /><div><h2>Let&apos;s give it<br /><em>a better finish.</em></h2><a href={route("/#estimate")}>Request an estimate <span>↗</span></a></div></div>
       <div className="footer-grid">
-        <div><p>Brian McKeon Painting</p><span>Residential · Commercial · Specialty</span><a href="tel:+16038581206">603 858 1206</a><a className="footer-email" href="mailto:b.mckeonpainting@gmail.com">b.mckeonpainting@gmail.com</a><div className="footer-socials"><a href="https://www.yelp.com/biz/brian-mckeon-painting-concord" target="_blank" rel="noreferrer">Yelp <span>↗</span></a><a href="https://www.facebook.com/brianmckeonpainting" target="_blank" rel="noreferrer">Facebook <span>↗</span></a></div></div>
+        <div><p>Brian McKeon Painting</p><span>Residential · Commercial · Specialty</span><a href="tel:+16038581206">603 858 1206</a><a className="footer-email" href="mailto:b.mckeonpainting@gmail.com">b.mckeonpainting@gmail.com</a></div>
         <div><p>Explore</p>{navigation.map((item) => <a key={item.label} href={route(item.href)}>{item.label}</a>)}<a href={route("/#estimate")}>Contact</a></div>
         <div><p>Legal &amp; trust</p><button onClick={() => setLegalOpen("privacy")}>Privacy notice</button><button onClick={() => setLegalOpen("terms")}>Website terms</button><button onClick={() => setLegalOpen("insurance")}>Insurance disclosure</button><button onClick={() => setLegalOpen("accessibility")}>Accessibility</button></div>
+      </div>
+      <div className="business-links">
+        <div className="business-links-intro"><p>Find Brian online</p><h3>More work. More local proof.</h3><span>Visit the official business profiles.</span></div>
+        <a className="business-link business-link-yelp" href="https://www.yelp.com/biz/brian-mckeon-painting-concord" target="_blank" rel="noreferrer"><span className="business-link-art" aria-hidden="true"><img src={asset("/Project 1 Finished.jpg")} alt="" /></span><i className="business-logo"><img src={asset("/yelp-logo.png")} alt="Yelp" /></i><span className="business-link-copy"><small>Business profile</small><b>Visit Brian on Yelp</b><em>Reviews and business details</em></span><strong>↗</strong></a>
+        <a className="business-link business-link-facebook" href="https://www.facebook.com/brianmckeonpainting" target="_blank" rel="noreferrer"><span className="business-link-art" aria-hidden="true"><img src={asset("/FB_IMG_1787623635061.jpg")} alt="" /></span><i className="business-logo"><img src={asset("/facebook-logo.png")} alt="Facebook" /></i><span className="business-link-copy"><small>Project updates</small><b>Follow on Facebook</b><em>Recent work and community posts</em></span><strong>↗</strong></a>
       </div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Brian McKeon Painting. Demo website.</span><a href="#top">Back to top ↑</a></div>
     </footer>
